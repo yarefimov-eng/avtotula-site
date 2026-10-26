@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a2b">
+  <meta name="description" content="Диагностика, техническое обслуживание и ремонт автомобилей в Туле.">
+  <title>АвтоТула — автосервис в Туле</title>
+  <style>
+
+    :root { --accent: #fbbf55; font-family: Arial, Helvetica, sans-serif; color:#142037; background:#eef2f7; scroll-behavior:smooth; }
+    * { box-sizing:border-box; }
+    body { margin:0; }
+    button, input, select { font:inherit; }
+    button { cursor:pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+    .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+    header { background:#101a2b; color:#fff; }
+    .nav { min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+    .brand { font-size:24px; font-weight:900; letter-spacing:-.8px; white-space:nowrap; }
+    .brand span { color:var(--accent); }
+    .brand small { font-size:10px; margin-left:7px; letter-spacing:.4px; font-weight:700; color:#cbd5e1; }
+    .navlinks { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .navlinks button { color:#dae3ee; background:none; border:0; padding:9px 6px; }
+    .navlinks button:hover { color:var(--accent); }
+    .navlinks .nav-cta { color:#111827; background:var(--accent); padding:11px 15px; border-radius:9px; font-weight:750; }
+    .hero { background:linear-gradient(125deg,#101a2b,#263e5c); color:#fff; padding:70px 0 74px; }
+    .eyebrow { color:var(--accent); font-size:12px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; }
+    h1 { margin:17px 0; font-size:clamp(34px,5vw,60px); line-height:1.08; max-width:750px; letter-spacing:-1.5px; }
+    .hero p { max-width:600px; color:#d3dfed; font-size:17px; line-height:1.65; margin:0; }
+    .actions { display:flex; flex-wrap:wrap; gap:11px; margin-top:28px; }
+    .btn { border:1px solid transparent; border-radius:10px; padding:14px 21px; font-weight:800; transition:background .15s ease; }
+    .btn-primary { color:#151a25; background:var(--accent); }
+    .btn-primary:hover { background:#ffd184; }
+    .btn-outline { color:#fff; background:transparent; border-color:#8593a8; }
+    .btn-outline:hover { background:#ffffff16; }
+    main { background:#f7f9fc; }
+    section { padding:55px 0; }
+    h2 { font-size:clamp(25px,3vw,34px); letter-spacing:-.7px; margin:0 0 10px; }
+    .lead { color:#64748b; line-height:1.6; margin:0 0 25px; }
+    .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .service { border:1px solid #e0e7ef; border-radius:15px; padding:22px; text-align:left; background:#fff; color:#17263a; min-height:185px; display:flex; flex-direction:column; align-items:flex-start; }
+    .service:hover { border-color:#f0ac43; box-shadow:0 9px 26px #13243d12; }
+    .emoji { font-size:31px; display:block; }
+    .service strong { margin:18px 0 10px; font-size:18px; }
+    .service small { color:#64748b; font-size:13px; }
+    .advantages { background:#edf2f8; }
+    .features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+    .features div { color:#334155; line-height:1.55; }
+    .features strong { display:block; color:#16283e; margin-bottom:6px; }
+    .contact { border-radius:16px; padding:27px; background:#e7eff8; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    .contact p { color:#53667e; margin:6px 0 0; line-height:1.6; }
+    .modal-backdrop { position:fixed; inset:0; background:#07111dc9; display:none; justify-content:center; align-items:center; z-index:10; padding:20px; }
+    .modal-backdrop.is-open { display:flex; }
+    .modal { background:#fff; border-radius:16px; width:min(100%,440px); padding:26px; box-shadow:0 25px 70px #030b17a0; color:#142037; max-height:90vh; overflow:auto; }
+    .modal-top { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .modal-top h2 { font-size:25px; margin:0; }
+    .close { border:0; background:#edf2f7; color:#17263a; border-radius:8px; font-size:20px; line-height:1; width:36px; height:36px; }
+    .modal-intro { color:#64748b; font-size:13px; line-height:1.5; margin:12px 0 20px; }
+    label { display:block; font-size:13px; font-weight:700; margin-bottom:16px; }
+    input, select { width:100%; display:block; margin-top:7px; border:1px solid #cbd5e1; border-radius:9px; padding:12px; background:#fff; color:#132039; }
+    .submit { width:100%; }
+    .feedback { font-size:12px; color:#64748b; line-height:1.5; min-height:19px; margin:12px 0 0; }
+    .feedback.success { color:#157347; font-weight:700; }
+    @media(max-width:640px) { .nav { padding:14px 0; } .navlinks { gap:4px; } .navlinks button { font-size:12px; } .hero { padding:50px 0; } .hero p { font-size:15px; } .cards { grid-template-columns:1fr; } .service { min-height:140px; } .features { grid-template-columns:1fr; gap:16px; } section { padding:36px 0; } }
+
+    .contact-info { display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+    .contact-info a, .contact-info span { font-weight:700; color:#1d4263; }
+    .contact-info [hidden] { display:none; }
+    .feedback:empty { display:none; }
+    .feedback.error { color:#b42318; font-weight:700; }
+    .submit:disabled { opacity:.6; cursor:wait; }
+    .brand { color:#fff; }
+    @media(prefers-reduced-motion: reduce) { :root { scroll-behavior:auto; } .btn { transition:none; } }
+
+    .navlinks a {color:#dae3ee;text-decoration:none;padding:9px 6px}
+    .navlinks a:hover {color:var(--accent)}
+    a.btn {display:inline-block;text-decoration:none;cursor:pointer}
+    #services, #advantages, #contacts {scroll-margin-top:15px}
+
+</style>
+  <script>
+/* Встроенные настройки, правьте значения ниже через GitHub Edit. */
+/* Публичные настройки сайта — не храните здесь пароли или API-ключи. */
+window.SITE_CONFIG = {
+  brandBefore: "АВТО",
+  brandAccent: "ТУЛА",
+  companyName: "АвтоТула",
+  city: "Тула",
+  heroKicker: "Автосервис в Туле",
+  heroTitle: "Ваш автомобиль — наша забота",
+  heroText: "Диагностика, техническое обслуживание и ремонт автомобилей. Профессиональный подход к каждой задаче.",
+  advantagesIntro: "Заботимся о вашем автомобиле и времени.",
+  contactTitle: "Ждём вас в Туле!",
+  contactDescription: "Свяжитесь с нами, чтобы уточнить детали записи.",
+  phone: "",
+  address: "",
+  hours: "",
+  email: "",
+  formspreeEndpoint: "",
+  accentColor: "#fbbf55",
+  services: [
+    { icon: "🔍", name: "Диагностика" },
+    { icon: "⚙️", name: "Ремонт двигателя" },
+    { icon: "🛠️", name: "Техобслуживание" }
+  ],
+  advantages: [
+    { title: "🛠️ Понятный процесс", text: "Объясняем каждый этап ремонта." },
+    { title: "⏱️ Удобная запись", text: "Выбирайте услугу и оставляйте заявку." },
+    { title: "📍 Рядом с вами", text: "Работаем в Туле." }
+  ]
+};
+
+</script>
+  
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand" id="site-brand">АВТО<span>ТУЛА</span></div>
+      <nav class="navlinks" aria-label="Навигация">
+        <a class="nav-link" href="#services">Услуги</a>
+        <a class="nav-link" href="#advantages">Преимущества</a>
+        <a class="nav-link" href="#contacts">Контакты</a>
+        <button type="button" class="nav-cta" data-book="">Записаться</button>
+      </nav>
+    </div>
+  </header>
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow" id="hero-kicker">Автосервис в Туле</div>
+      <h1 id="hero-title">Ваш автомобиль — наша забота</h1>
+      <p id="hero-text">Диагностика, техническое обслуживание и ремонт автомобилей.</p>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-book="">Записаться на ремонт →</button>
+        <a class="btn btn-outline" href="#services">Наши услуги ↓</a>
+      </div>
+    </div>
+  </div>
+  <main>
+    <section id="services"><div class="wrap">
+      <h2>Наши услуги</h2><p class="lead">Выберите услугу, чтобы открыть форму записи.</p>
+      <div class="cards" id="service-cards"></div>
+    </div></section>
+    <section class="advantages" id="advantages"><div class="wrap">
+      <h2>Почему выбирают нас</h2><p class="lead" id="advantages-intro">Заботимся о вашем автомобиле и времени.</p>
+      <div class="features" id="advantage-cards"></div>
+    </div></section>
+    <section id="contacts"><div class="wrap">
+      <div class="contact">
+        <div>
+          <h2 id="contact-title">Ждём вас в Туле!</h2>
+          <p id="contact-description">Свяжитесь с нами, чтобы уточнить детали записи.</p>
+          <div class="contact-info">
+            <a id="contact-phone" hidden></a>
+            <span id="contact-address" hidden></span>
+            <span id="contact-hours" hidden></span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" data-book="">Связаться →</button>
+      </div>
+    </div></section>
+  </main>
+  <div id="modal-backdrop" class="modal-backdrop" role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+      <div class="modal-top">
+        <h2 id="dialog-title">Запись в автосервис</h2>
+        <button id="close-modal" type="button" class="close" aria-label="Закрыть">×</button>
+      </div>
+      <p class="modal-intro">Укажите контактные данные и интересующую услугу.</p>
+      <form id="booking-form">
+        <label>Ваше имя<input id="client-name" name="name" type="text" required maxlength="100" autocomplete="name" placeholder="Иван"></label>
+        <label>Номер телефона<input id="client-phone" name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="+7 999 123-45-67"></label>
+        <label>Услуга<select name="service" id="chosen-service"></select></label>
+        <button id="submit-button" class="btn btn-primary submit" type="submit">Отправить заявку</button>
+      </form>
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+<script>
+(function () {
+  'use strict';
+  const c = window.SITE_CONFIG || {};
+  const el = id => document.getElementById(id);
+  function setText(id, value) { if (typeof value === 'string') el(id).textContent = value; }
+  for (const [id, key] of [
+    ['hero-kicker','heroKicker'],['hero-title','heroTitle'],['hero-text','heroText'],
+    ['advantages-intro','advantagesIntro'],['contact-title','contactTitle'],
+    ['contact-description','contactDescription']
+  ]) setText(id,c[key]);
+  document.title = ((c.companyName || 'Автосервис') + ' — ' + (c.heroKicker || 'сайт'));
+  document.querySelector('meta[name="description"]').content = c.heroText || '';
+  const brand = el('site-brand');
+  brand.textContent = c.brandBefore || 'АВТО';
+  const accentPart = document.createElement('span');
+  accentPart.textContent = c.brandAccent || 'ТУЛА';
+  brand.appendChild(accentPart);
+  if (/^#[\da-f]{6}$/i.test(c.accentColor || '')) document.documentElement.style.setProperty('--accent',c.accentColor);
+
+  if (c.phone && /^[+\d\s()\-]{5,25}$/.test(c.phone)) {
+    const link=el('contact-phone'); link.textContent=c.phone;
+    link.href='tel:'+c.phone.replace(/[^+\d]/g,''); link.hidden=false;
+  }
+  for (const [id,key] of [['contact-address','address'],['contact-hours','hours']]) {
+    if (typeof c[key]==='string' && c[key].trim()) { el(id).textContent=c[key];el(id).hidden=false; }
+  }
+  const services = Array.isArray(c.services) ? c.services.filter(s=>s && typeof s.name==='string' && s.name.trim()) : [];
+  const serviceSelect=el('chosen-service');
+  services.forEach(s=>{
+    const b=document.createElement('button'); b.type='button';b.className='service';b.dataset.book=s.name;
+    const emoji=document.createElement('span');emoji.className='emoji';emoji.setAttribute('aria-hidden','true');emoji.textContent=s.icon || '🔧';
+    const title=document.createElement('strong');title.textContent=s.name;
+    const small=document.createElement('small');small.textContent='Оставить заявку →';
+    b.append(emoji,title,small);el('service-cards').append(b);
+    const o=document.createElement('option');o.textContent=s.name;o.value=s.name;serviceSelect.append(o);
+  });
+  const other=document.createElement('option');other.textContent='Другая услуга';serviceSelect.append(other);
+  if (services.length===0) el('service-cards').textContent='Информация об услугах появится здесь.';
+  if (Array.isArray(c.advantages)) c.advantages.forEach(a=>{
+    if(!a || !a.title) return;
+    const div=document.createElement('div'), strong=document.createElement('strong');
+    strong.textContent=a.title; div.append(strong,document.createTextNode(a.text || ''));
+    el('advantage-cards').append(div);
+  });
+
+  const backdrop=el('modal-backdrop'), closeButton=el('close-modal'), form=el('booking-form'), feedback=el('feedback'), submit=el('submit-button');
+  let previousFocus=null;
+  function showMessage(message,type) {feedback.textContent=message;feedback.className='feedback'+(type?' '+type:'');}
+  function closeModal(){backdrop.classList.remove('is-open');if(previousFocus && previousFocus.focus)previousFocus.focus();}
+  document.addEventListener('click',event=>{
+    const btn=event.target.closest('[data-book]');
+    if(!btn)return;
+    previousFocus=document.activeElement;
+    if(btn.dataset.book)serviceSelect.value=btn.dataset.book;
+    showMessage('','');backdrop.classList.add('is-open');el('client-name').focus();
+  });
+  closeButton.addEventListener('click',closeModal);
+  backdrop.addEventListener('click',event=>{if(event.target===backdrop)closeModal();});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape' && backdrop.classList.contains('is-open'))closeModal();});
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(!form.reportValidity())return;
+    const name=el('client-name').value.trim();const phone=el('client-phone').value.trim();const service=serviceSelect.value;
+    if(!name || !phone)return;
+    const endpoint=(c.formspreeEndpoint || '').trim();
+    if(endpoint){
+      if(!/^https:\/\/formspree\.io\/f\/[\w-]+$/i.test(endpoint)){
+        showMessage('Проверьте адрес Formspree в настройках сайта.','error');return;
+      }
+      submit.disabled=true;showMessage('Отправляем заявку…','');
+      try{
+        const response=await fetch(endpoint,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({name,phone,service})});
+        if(!response.ok)throw new Error('Request not accepted');
+        showMessage('Заявка отправлена. Скоро с вами свяжутся.','success');form.reset();
+      }catch(error){showMessage('Не удалось отправить заявку. Попробуйте снова или свяжитесь с нами по телефону.','error');}
+      finally{submit.disabled=false;}
+      return;
+    }
+    if (typeof c.email==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email)){
+      const subject='Заявка с сайта: '+service;
+      const body='Имя: '+name+'\nТелефон: '+phone+'\nУслуга: '+service;
+      const url='mailto:'+encodeURIComponent(c.email)+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+      showMessage('Откроется почтовое приложение. Для завершения заявки отправьте подготовленное письмо.','');
+      window.location.href=url;
+    }else{
+      showMessage('Онлайн-запись ещё не подключена. Укажите email или Formspree в настройках сайта.','error');
+    }
+  });
+})();
+
+</script>
+</body>
+</html>
